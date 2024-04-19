@@ -1,23 +1,53 @@
+<!-- <div class="col-md-6 offset-md-3">
+    <br>
+    <h3 style="text-align: center;">Create Employee</h3>
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="employee.firstName" name="firstName">
+
+            <label>Last Name</label>
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="employee.lastName" name="lastName">
+
+            <label>Email Id</label>
+            <input type="email" class="form-control" id="emailId" [(ngModel)]="employee.emailId" name="emailId">
+        </div>
+        <br>
+        <button class="btn btn-success" type="submit">Add Employee</button>
+
+    </form>
+</div> -->
+
 <div class="col-md-6 offset-md-3">
     <br>
-<h3 style="text-align: center;">Create Employee</h3>
-<form (ngSubmit)="onSubmit()">
+    <h3 style="text-align: center;">Create Employee</h3>
+    <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
 
-    <div class="form-group">
-        <label>First Name</label>
-        <input type="text" class="form-control" id="firstName"
-        [(ngModel)]="employee.firstName" name="firstName">
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" id="firstName" [(ngModel)]="employee.firstName" name="firstName"
+                required pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" #firstName="ngModel">
+            <div *ngIf="firstName.touched && firstName.invalid" class="text-danger">
+                First Name is required and should contain only letters.
+            </div>
 
-        <label>Last Name</label>
-        <input type="text" class="form-control" id="lastName"
-        [(ngModel)]="employee.lastName" name="lastName">
+            <label>Last Name</label>
+            <input type="text" class="form-control" id="lastName" [(ngModel)]="employee.lastName" name="lastName"
+                required pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$" #lastName="ngModel">
+            <div *ngIf="lastName.touched && lastName.invalid" class="text-danger">
+                Last Name is required and should contain only letters.
+            </div>
 
-        <label>Email Id</label>
-        <input type="text" class="form-control" id="emailId"
-        [(ngModel)]="employee.emailId" name="emailId">
-    </div>
-   <br>
-    <button class="btn btn-success" type="submit">Add Employee</button>
+            <label>Email Id</label>
+            <input type="email" class="form-control" id="emailId" [(ngModel)]="employee.emailId" name="emailId" required
+                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" #emailId="ngModel">
+            <div *ngIf="emailId.touched && emailId.invalid" class="text-danger">
+                Please enter a valid Email Id.
+            </div>
+        </div>
+        <br>
+        <button class="btn btn-success" type="submit" [disabled]="employeeForm.invalid">Add Employee</button>
 
-</form>
+    </form>
 </div>
